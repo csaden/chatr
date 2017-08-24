@@ -1,0 +1,36 @@
+@import 'colors.scss';
+
+.sidebar {
+  background-color: darken($greyBlue, 5%);
+}
+
+.title {
+  font-size: 24px;
+  color: $teal;
+  letter-spacing: 3px;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.category {
+  color: $cream;
+  display: block;
+  padding: 20px;
+  text-transform: capitalize;
+  text-decoration: none;
+  border-top: solid 1px $greyDark;
+}
+
+.category:last-of-type {
+  border-bottom: solid 1px $greyDark;
+}
+
+.active {
+  color: $teal;
+  border-left: solid 3px $teal;
+  background-color: $greyBlue;
+}
+
+.category:hover {
+  background-color: $greyBlue;
+}

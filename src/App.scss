@@ -1,0 +1,20 @@
+@import 'colors.scss';
+
+.flex {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.sidebar {
+  flex-basis: 15%;
+  background-color: darken($greyBlue, 5%);
+  height: 100vh;
+}
+
+.content {
+  flex-basis: 85%;
+  background-color: $cream;
+  height: 100vh;
+}
