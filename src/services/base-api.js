@@ -1,3 +1,4 @@
+import _     from 'lodash';
 import axios from 'axios';
 
 const JWT_TOKEN = 'token'
@@ -15,11 +16,9 @@ const apiRequest = (method, url, data, options = {}) => {
     url,
     data,
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
       ...headers
-    },
-    responseType: 'json'
-  }, options));
+    }
+  }, options))
 };
 
 export default apiRequest;
