@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types';
 
+const category = {
+  name: PropTypes.string,
+  path: PropTypes.string
+};
+
+const categories = PropTypes.arrayOf(PropTypes.shape(category));
+
 const post = {
   id:        PropTypes.string,
   timestamp: PropTypes.integer,
@@ -9,7 +16,7 @@ const post = {
   category:  PropTypes.string,
   voteScore: PropTypes.integer,
   deleted:   PropTypes.bool
-}
+};
 
 const comment = {
   id:            PropTypes.string,
@@ -20,9 +27,10 @@ const comment = {
   voteScore:     PropTypes.integer,
   deleted:       PropTypes.bool,
   parentDeleted: PropTypes.bool
-}
+};
 
 export {
+  categories,
   post,
   comment
 };
