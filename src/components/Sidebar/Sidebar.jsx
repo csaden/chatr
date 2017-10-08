@@ -23,10 +23,10 @@ export default class Sidebar extends PureComponent {
     return (
       <div className='sidebar'>
         <h1 className='title'>chatr</h1>
-        {_.map(categories, (category, i) => {
+        {_.map(categories, (category) => {
           return (
             <Link
-              key={i}
+              key={category.name}
               className={_.isEqual(category.name, selected) ? 'category active' : 'category'}
               onClick={() => onSelectCategory(category.name)}
               to={category.path}>
