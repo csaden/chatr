@@ -24,6 +24,10 @@ export default class Routes extends PureComponent {
                 path='/categories'
                 component={PostList}
               />
+              <Route
+                path='/all'
+                component={PostList}
+              />
             </Switch>
           </App>
         </Router>
