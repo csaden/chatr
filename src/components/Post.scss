@@ -1,0 +1,81 @@
+@import 'colors.scss';
+@import 'button.scss';
+
+.post {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid $greyLight;
+  box-shadow: 12px 15px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.post + .post {
+  margin-top: 20px;
+}
+
+.vote-score {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.score {
+  width: 20px;
+  font-size: 30px;
+  padding: 10px 10px 4px;
+  color: $greyDark;
+}
+
+.votes {
+  font-size: 12px;
+  color: $grey;
+  text-align: center;
+}
+
+.post-content {
+  padding: 20px;
+}
+
+.post-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.post-body {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.post-author {
+  font-size: 12px;
+  margin-bottom: 20px;
+  color: $grey;
+}
+
+.post-btn__comment {
+  @extend .button;
+  background-color: darken($teal, 10%);
+
+  &:hover {
+    background-color: darken($teal, 15%);
+  }
+}
+
+.post-btn__edit {
+  @extend .button;
+  background-color: $grey;
+
+  &:hover {
+    background-color: darken($grey, 5%);
+  }
+}
+
+.post-btn__delete {
+  @extend .button;
+  background-color: $red;
+
+  &:hover {
+    background-color: darken($red, 5%);
+  }
+}
