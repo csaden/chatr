@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+import Select from 'react-select';
 
 import {categories, posts} from './components/app-prop-types';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -9,7 +10,14 @@ import {
   POSTS_REQUESTED
 } from './redux/types';
 import {sortPosts} from './redux/reducers/posts';
+
+import 'react-select/dist/react-select.css';
 import './App.css';
+
+const SORT_OPTIONS = [
+  {label: 'Date', value: 'timestamp'},
+  {label: 'Votes', value: 'voteScore'}
+];
 
 class App extends Component {
 
@@ -59,10 +67,14 @@ class App extends Component {
           <h2 className='header'>Category: {_.startCase(selected)}</h2>
           <div className='sort-container'>
             <span className='sort'>Sort by</span>
-            <select onChange={this.handleSelectSort}>
-              <option value='timestamp'>Date</option>
-              <option value='voteScore'>Votes</option>
-            </select>
+            <Select
+              name='sort-key-select'
+              onChange={this.handleSelectSort}
+              options={SORT_OPTIONS}
+              className='sort-select'
+              clearable={false}
+              value={sortKey}
+            />
           </div>
           {this.props.children}
         </div>

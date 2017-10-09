@@ -15,7 +15,6 @@
 
 .content {
   flex-basis: 85%;
-  background-color: $cream;
   height: 100vh;
   padding: 20px 40px;
 }
@@ -31,4 +30,9 @@
 
 .sort {
   margin-right: 8px;
+}
+
+.sort-select {
+  display: inline-block;
+  width: 100px;
 }
