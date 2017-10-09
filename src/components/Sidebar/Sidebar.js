@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React, {PureComponent} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
 import {categories} from '../app-prop-types';
 import './Sidebar.css';
 
-class Sidebar extends PureComponent {
+export default class Sidebar extends PureComponent {
   static propTypes = {
     categories: categories
   }
@@ -15,34 +15,23 @@ class Sidebar extends PureComponent {
   }
 
   render() {
-    const {
-      categories,
-      location
-    } = this.props;
-
-    const selected = _.last(location.pathname.split('/'));
+    const {categories} = this.props;
 
     return (
       <div className='sidebar'>
         <h1 className='title'>chatr</h1>
         {_.map(categories, (category) => {
           return (
-            <Link
+            <NavLink
               key={category.name}
-              className={_.isEqual(category.name, selected) ? 'category active' : 'category'}
+              activeClassName='active'
+              className='category'
               to={`/category/${category.path}`}>
                 {_.capitalize(category.name)}
-            </Link>
+            </NavLink>
           );
         })}
       </div>
     );
   }
-};
-
-const SidebarRouter = withRouter(Sidebar);
-
-export {
-  SidebarRouter as default,
-  Sidebar
 };
