@@ -5,7 +5,7 @@ const category = PropTypes.shape({
   path: PropTypes.string
 });
 
-const categories = PropTypes.arrayOf(PropTypes.shape(category));
+const categories = PropTypes.arrayOf(category);
 
 const post = PropTypes.shape({
   id:        PropTypes.string,
@@ -18,7 +18,7 @@ const post = PropTypes.shape({
   deleted:   PropTypes.bool
 });
 
-const posts = PropTypes.arrayOf(PropTypes.shape(post));
+const posts = PropTypes.arrayOf(post);
 
 const comment = PropTypes.shape({
   id:            PropTypes.string,
