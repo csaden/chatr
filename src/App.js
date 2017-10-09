@@ -5,11 +5,12 @@ import Select from 'react-select';
 
 import {categories, posts} from './components/app-prop-types';
 import Sidebar from './components/Sidebar/Sidebar';
+import PostForm from './components/PostForm';
 import {
   CATEGORIES_REQUESTED,
   POSTS_REQUESTED
 } from './redux/types';
-import {sortPosts} from './redux/reducers/posts';
+import {addPost, sortPosts} from './redux/reducers/posts';
 
 import 'react-select/dist/react-select.css';
 import './App.css';
@@ -32,6 +33,7 @@ class App extends Component {
   }
 
   state = {
+    isAddingPost: false,
     selected: 'all',
     sortKey: 'voteScore'
   }
@@ -42,19 +44,40 @@ class App extends Component {
     dispatch({type: POSTS_REQUESTED});
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (_.size(this.props.posts) < _.size(nextProps.posts)) {
+      this.props.dispatch(sortPosts(this.state.sortKey));
+    }
+  }
+
   handleSelectCategory = (selected) => {
     this.setState({selected});
   }
 
-  handleSelectSort = (e) => {
-    const sortKey = _.get(e, 'target.value');
+  handleAddPostClick = (e) => {
+    e.preventDefault();
+    this.setState({isAddingPost: true});
+  }
+
+  handleSubmitPostClick = (post) => {
+    this.props.dispatch(addPost(post));
+    this.setState({isAddingPost: false});
+  }
+
+  handleCancelClick = (e) => {
+    e.preventDefault();
+    this.setState({isAddingPost: false});
+  }
+
+  handleSelectSort = (option) => {
+    const sortKey = _.get(option, 'value', 'voteScore');
     this.setState({sortKey});
     this.props.dispatch(sortPosts(sortKey));
   }
 
   render() {
     const {categories, children} = this.props;
-    const {selected, sortKey} = this.state;
+    const {isAddingPost, selected, sortKey} = this.state;
 
     return (
       <div className='flex'>
@@ -65,7 +88,12 @@ class App extends Component {
           onSelectCategory={this.handleSelectCategory}/>
         <div className='content'>
           <h2 className='header'>Category: {_.startCase(selected)}</h2>
-          <div className='sort-container'>
+          <div className='container'>
+            <button
+              className='post-btn__add'
+              onClick={this.handleAddPostClick}>
+                add post
+            </button>
             <span className='sort'>Sort by</span>
             <Select
               name='sort-key-select'
@@ -76,6 +104,12 @@ class App extends Component {
               value={sortKey}
             />
           </div>
+          {isAddingPost &&
+            <PostForm
+              onCancel={this.handleCancelClick}
+              onSubmit={this.handleSubmitPostClick}
+            />
+          }
           {this.props.children}
         </div>
       </div>
