@@ -9,16 +9,20 @@ import Post from './Post';
 class PostList extends Component {
   static propTypes = {
     posts: posts,
-    sortKey: PropTypes.string.isRequired
+    sortKey: PropTypes.string
+  }
+
+  static defaultProps = {
+    posts: [],
+    sortKey: 'voteScore'
   }
 
   render() {
     const {posts, sortKey} = this.props;
-    console.log(sortKey);
 
     return (
       <ol>
-        {_.map(_.sortBy(posts, sortKey), (post) => {
+        {_.map(posts, (post) => {
           return <Post key={post.id} post={post}/>
         })}
       </ol>

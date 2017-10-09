@@ -8,18 +8,14 @@ const ReadableAPI = {
     const url = UrlHelper.createApiUrl(READABLE_API_URL, path);
     return apiRequest('get', url, null, options)
     .then(resp => resp.data)
-    .catch(err => {
-      throw new Error(err.message);
-    });
+    .catch(error => ({error}));
   },
 
   post(path, data, options = {}) {
     const url = UrlHelper.createApiUrl(READABLE_API_URL, path);
     return apiRequest('post', url, data, options)
     .then(resp => resp.data)
-    .catch(err => {
-      throw new Error(err.message);
-    });
+    .catch(error => ({error}));
   }
 }
 
