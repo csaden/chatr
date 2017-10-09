@@ -110,7 +110,7 @@ class App extends Component {
               onSubmit={this.handleSubmitPostClick}
             />
           }
-          {this.props.children}
+          {children}
         </div>
       </div>
     );

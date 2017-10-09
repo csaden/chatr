@@ -95,7 +95,7 @@ class PostForm extends Component {
                 className='input'
                 id='post-otherCategory'
                 onChange={this.handleInputChange}
-                value={this.state.otherCategory || ''}
+                value={otherCategory || ''}
               />
             </div>
           }

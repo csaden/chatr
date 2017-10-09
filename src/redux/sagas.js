@@ -1,4 +1,4 @@
-import {call, put, take, takeLatest} from 'redux-saga/effects';
+import {call, put, takeLatest} from 'redux-saga/effects';
 
 import * as types  from './types';
 import ReadableAPI from '../services/readable-api';
