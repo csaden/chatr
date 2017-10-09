@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import _ from 'lodash';
+import {withRouter} from 'react-router-dom';
 import Select from 'react-select';
 
 import {categories, posts} from './components/app-prop-types';
@@ -34,7 +35,6 @@ class App extends Component {
 
   state = {
     isAddingPost: false,
-    selected: 'all',
     sortKey: 'voteScore'
   }
 
@@ -48,10 +48,6 @@ class App extends Component {
     if (_.size(this.props.posts) < _.size(nextProps.posts)) {
       this.props.dispatch(sortPosts(this.state.sortKey));
     }
-  }
-
-  handleSelectCategory = (selected) => {
-    this.setState({selected});
   }
 
   handleAddPostClick = (e) => {
@@ -76,16 +72,17 @@ class App extends Component {
   }
 
   render() {
-    const {categories, children} = this.props;
-    const {isAddingPost, selected, sortKey} = this.state;
+    const {categories, children, location} = this.props;
+    const {isAddingPost, sortKey} = this.state;
+
+    const selected = _.last(location.pathname.split('/'));
 
     return (
       <div className='flex'>
         <Sidebar
           className='sidebar'
           categories={categories}
-          selected={selected}
-          onSelectCategory={this.handleSelectCategory}/>
+        />
         <div className='content'>
           <h2 className='header'>Category: {_.startCase(selected)}</h2>
           <div className='container'>
@@ -117,9 +114,14 @@ class App extends Component {
   }
 };
 
-const mapStateToProps = ({categories, posts}) => ({categories, posts});
+const mapStateToProps = ({categories, posts}) => {
+  return {
+    categories,
+    posts
+  };
+};
 
-const AppWithRedux = connect(mapStateToProps)(App);
+const AppWithRedux = withRouter(connect(mapStateToProps)(App));
 
 export {
   AppWithRedux as default,

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 import {posts} from './app-prop-types';
 import Post from './Post';
@@ -18,7 +19,11 @@ class PostList extends Component {
   }
 
   render() {
-    const {posts, sortKey} = this.props;
+    const {category} = this.props;
+    const posts = category === 'all' ?
+      this.props.posts
+      :
+      _.filter(this.props.posts, (post) => post.category === category);
 
     return (
       <ol>
@@ -30,7 +35,13 @@ class PostList extends Component {
   }
 };
 
-const PostListRedux = connect((state) => ({posts: state.posts}))(PostList);
+const PostListRedux = withRouter(connect(({posts}, {match}) => {
+  const category = _.get(match, 'params.category');
+  return {
+    category,
+    posts
+  };
+})(PostList));
 
 export {
   PostListRedux as default,

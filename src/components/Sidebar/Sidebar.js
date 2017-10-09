@@ -1,29 +1,28 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link, withRouter} from 'react-router-dom';
 
 import {categories} from '../app-prop-types';
 import './Sidebar.css';
 
-export default class Sidebar extends PureComponent {
+class Sidebar extends PureComponent {
   static propTypes = {
-    categories: categories,
-    onSelectCategory: PropTypes.func,
-    selected: PropTypes.string,
+    categories: categories
   }
 
   static defaultProps = {
-    categories: [],
-    selected: null
+    categories: []
   }
 
   render() {
     const {
       categories,
-      onSelectCategory,
-      selected
+      location
     } = this.props;
+
+    const selected = _.last(location.pathname.split('/'));
 
     return (
       <div className='sidebar'>
@@ -33,8 +32,7 @@ export default class Sidebar extends PureComponent {
             <Link
               key={category.name}
               className={_.isEqual(category.name, selected) ? 'category active' : 'category'}
-              onClick={() => onSelectCategory(category.name)}
-              to={category.path}>
+              to={`/category/${category.path}`}>
                 {_.capitalize(category.name)}
             </Link>
           );
@@ -42,4 +40,11 @@ export default class Sidebar extends PureComponent {
       </div>
     );
   }
+};
+
+const SidebarRouter = withRouter(Sidebar);
+
+export {
+  SidebarRouter as default,
+  Sidebar
 };
