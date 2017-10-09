@@ -31,11 +31,11 @@ export function sortPosts(sortKey) {
     type: POSTS_SORT,
     sortKey
   }
-}
+};
 
 export function addPost(post) {
   return {
     type: POSTS_ADD_REQUESTED,
     post
   };
-}
+};
