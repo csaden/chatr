@@ -3,13 +3,13 @@ import {Provider}             from 'react-redux';
 import {
   Redirect,
   Route,
-  Router,
-  Switch
+  Router
 } from 'react-router-dom';
 
 import history from './browser-history';
 import App from './App';
 import PostList from './components/PostList';
+import PostDetail from './components/PostDetail';
 import store from './redux/store';
 
 export default class Routes extends PureComponent {
@@ -19,7 +19,9 @@ export default class Routes extends PureComponent {
         <Router history={history}>
           <App>
             <Redirect to='/category/all'/>
-            <Route path='/category/:category' component={PostList}/>
+            <Route path='/category/:category' component={PostList}>
+              <Route path='/post/:post' component={PostDetail}/>
+            </Route>
           </App>
         </Router>
       </Provider>

@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 
 import {categories} from '../app-prop-types';
