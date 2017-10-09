@@ -9,8 +9,13 @@ import './Sidebar.css';
 export default class Sidebar extends PureComponent {
   static propTypes = {
     categories: categories,
-    onSelectCategory: PropTypes.func.isRequired,
+    onSelectCategory: PropTypes.func,
     selected: PropTypes.string,
+  }
+
+  static defaultProps = {
+    categories: [],
+    selected: null
   }
 
   render() {
