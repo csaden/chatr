@@ -83,24 +83,26 @@ class App extends Component {
           className='sidebar'
           categories={categories}
         />
-        <div className='content'>
-          <h2 className='header'>Category: {_.startCase(selected)}</h2>
-          <div className='container'>
-            <button
-              className='post-btn__add'
-              onClick={this.handleAddPostClick}>
-                add post
-            </button>
-            <span className='sort'>Sort by</span>
-            <Select
-              name='sort-key-select'
-              onChange={this.handleSelectSort}
-              options={SORT_OPTIONS}
-              className='sort-select'
-              clearable={false}
-              value={sortKey}
-            />
-          </div>
+        <div className='app-content'>
+          <h2 className='app-header'>{header}</h2>
+          {_.includes(location.pathname, '/category/') &&
+            <div className='app-container'>
+              <button
+                className='post-btn__add'
+                onClick={this.handleAddPostClick}>
+                  add post
+              </button>
+              <span className='sort'>Sort by</span>
+              <Select
+                name='sort-key-select'
+                onChange={this.handleSelectSort}
+                options={SORT_OPTIONS}
+                className='sort-select'
+                clearable={false}
+                value={sortKey}
+              />
+            </div>
+          }
           {isAddingPost &&
             <PostForm
               onCancel={this.handleCancelClick}
