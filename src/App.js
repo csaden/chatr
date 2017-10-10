@@ -75,7 +75,8 @@ class App extends Component {
     const {categories, children, location} = this.props;
     const {isAddingPost, sortKey} = this.state;
 
-    const selected = _.last(location.pathname.split('/'));
+    const parts = _.drop(location.pathname.split('/'));
+    const header = _.first(parts) === 'post' ? 'Post Detail' : `Category: ${_.startCase(_.last(parts))}`
 
     return (
       <div className='flex'>
