@@ -1,0 +1,44 @@
+@import 'colors.scss';
+
+.content-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.vote-score {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.score {
+  width: 20px;
+  font-size: 30px;
+  padding: 10px 10px 4px;
+  color: $greyDark;
+}
+
+.votes {
+  font-size: 12px;
+  color: $grey;
+  text-align: center;
+}
+
+.content {
+  padding: 20px;
+}
+
+.content-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.content-body {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.content-author {
+  font-size: 12px;
+  color: $grey;
+}
