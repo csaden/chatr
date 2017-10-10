@@ -1,0 +1,11 @@
+@import 'colors.scss';
+
+.comment {
+  border-radius: 4px;
+  border: 1px solid $greyLight;
+  padding: 6px 20px;
+}
+
+.comment + .comment {
+  margin-top: 20px;
+}

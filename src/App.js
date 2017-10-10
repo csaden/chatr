@@ -11,6 +11,7 @@ import {
   CATEGORIES_REQUESTED,
   POSTS_REQUESTED
 } from './redux/types';
+import {fetchCommentsForPost} from './redux/reducers/comments';
 import {addPost, sortPosts} from './redux/reducers/posts';
 
 import 'react-select/dist/react-select.css';
@@ -45,8 +46,10 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (_.size(this.props.posts) < _.size(nextProps.posts)) {
+    const newPosts = _.differenceBy(nextProps.posts, this.props.posts, 'id');
+    if (_.size(newPosts) > 0) {
       this.props.dispatch(sortPosts(this.state.sortKey));
+      _.each(newPosts, (post) => this.props.dispatch(fetchCommentsForPost(post.id)));
     }
   }
 

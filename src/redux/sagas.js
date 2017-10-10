@@ -1,4 +1,4 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 
 import * as types  from './types';
 import ReadableAPI from '../services/readable-api';
@@ -32,8 +32,20 @@ export function* addPost(action) {
   }
 }
 
+export function* fetchComments(action) {
+  const {id} = action;
+  const resp = yield call(ReadableAPI.get, `/posts/${id}/comments`);
+  if (Array.isArray(resp)) {
+    yield put({type: types.COMMENTS_FETCH_SUCCESS, comments: resp, id});
+  } else {
+    const {error} = resp;
+    yield put({type: types.COMMENTS_FETCH_FAILED, message: error.message});
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest(types.CATEGORIES_REQUESTED, fetchCategories);
   yield takeLatest(types.POSTS_REQUESTED, fetchAllPosts);
   yield takeLatest(types.POSTS_ADD_REQUESTED, addPost);
+  yield takeEvery(types.COMMENTS_REQUESTED, fetchComments);
 }

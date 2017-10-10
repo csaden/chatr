@@ -31,10 +31,13 @@ const comment = PropTypes.shape({
   parentDeleted: PropTypes.bool
 });
 
+const comments = PropTypes.arrayOf(comment);
+
 export {
   category,
   categories,
   post,
   posts,
-  comment
+  comment,
+  comments
 };

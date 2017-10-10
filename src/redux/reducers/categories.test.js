@@ -7,13 +7,13 @@ it('sets the initial state to an empty array', () => {
 
 it('updates the categories and returns an \'all\' category', () => {
   Object.freeze(initialState);
-  const categories = [{name: 'foo', path: '/foo'}];
+  const categories = [{name: 'foo', path: 'foo'}];
   const action = {
     type: CATEGORIES_FETCH_SUCCESS,
     categories
   };
   expect(reducer(undefined, action)).toEqual([
-    {name: 'all', path: '/all'},
-    {name: 'foo', path: '/foo'}
+    {name: 'all', path: 'all'},
+    {name: 'foo', path: 'foo'}
   ]);
 });

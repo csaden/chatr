@@ -18,9 +18,8 @@ export default class Routes extends PureComponent {
         <Router>
           <App>
             <Redirect to='/category/all'/>
-            <Route path='/category/:category' component={PostList}>
-              <Route path='/post/:post' component={PostDetail}/>
-            </Route>
+            <Route path='/category/:category' component={PostList}/>
+            <Route path='/post/:id' component={PostDetail}/>
           </App>
         </Router>
       </Provider>

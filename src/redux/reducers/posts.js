@@ -20,7 +20,7 @@ export default function posts(state = initialState, action) {
     case POSTS_FETCH_FAILED:
       return state;
     case POSTS_SORT:
-      return _.reverse(_.sortBy(state, action.sortKey));
+      return _.orderBy(state, [action.sortKey], ['desc']);
     default:
       return state;
   }

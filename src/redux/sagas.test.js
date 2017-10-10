@@ -3,6 +3,7 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import {
   addPost,
   fetchCategories,
+  fetchComments,
   fetchAllPosts
 } from './sagas';
 import ReadableAPI  from '../services/readable-api';
@@ -39,16 +40,32 @@ test('#fetchAllPosts puts error message', () => {
 });
 
 test('#addPost calls ReadableAPI.post at /posts', () => {
-  const post = {title: 'new'};
-  gen = addPost(post);
+  const post = {id: 1, author: 'foo'};
+  gen = addPost({post: post});
   expect(gen.next().value).toEqual(call(ReadableAPI.post, '/posts', post));
-  expect(gen.next({post}).value).toEqual(put({type: types.POSTS_ADD_SUCCESS, post}));
+  expect(gen.next(post).value).toEqual(put({type: types.POSTS_ADD_SUCCESS, post}));
 });
 
 test('#addPost puts error message', () => {
   const error = {message: 'baz'};
   const post = {title: 'new'};
-  gen = addPost(post);
+  gen = addPost({post: post});
   expect(gen.next().value).toEqual(call(ReadableAPI.post, '/posts', post));
   expect(gen.next({error}).value).toEqual(put({type: types.POSTS_ADD_FAILED, message: 'baz'}));
+});
+
+test('#fetchComments calls ReadableAPI.get at /posts/:id/comments', () => {
+  const comments = [];
+  const id = 1;
+  gen = fetchComments({id});
+  expect(gen.next().value).toEqual(call(ReadableAPI.get, '/posts/1/comments'));
+  expect(gen.next(comments).value).toEqual(put({type: types.COMMENTS_FETCH_SUCCESS, comments, id}));
+});
+
+test('#fetchComments puts error message', () => {
+  const error = {message: 'qux'}
+  const id = 2;
+  gen = fetchComments({id});
+  expect(gen.next().value).toEqual(call(ReadableAPI.get, '/posts/2/comments'));
+  expect(gen.next({error}).value).toEqual(put({type: types.COMMENTS_FETCH_FAILED, message: 'qux'}));
 });
