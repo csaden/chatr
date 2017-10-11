@@ -22,6 +22,11 @@
     box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.1);
     transition: 0.2s box-shadow ease-in-out, 0.2s background-color ease-in-out, 0.2s border-color ease-in-out;
   }
+
+  &:hover:disabled, &:disabled {
+    background-color: $grey;
+    cursor: not-allowed;
+  }
 }
 
 .button + .button {

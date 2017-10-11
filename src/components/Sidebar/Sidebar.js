@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {categories} from '../app-prop-types';
 import './Sidebar.css';
 
-export default class Sidebar extends PureComponent {
+export default class Sidebar extends Component {
   static propTypes = {
     categories: categories
   }
@@ -20,17 +20,20 @@ export default class Sidebar extends PureComponent {
     return (
       <div className='sidebar'>
         <h1 className='title'>chatr</h1>
+        <ul>
         {_.map(categories, (category) => {
           return (
-            <NavLink
-              key={category.name}
-              activeClassName='active'
-              className='category'
-              to={`/category/${category.path}`}>
-                {_.capitalize(category.name)}
-            </NavLink>
+            <li key={category.name}>
+              <NavLink
+                exact
+                className='category'
+                to={`/category/${category.path}`}>
+                  {_.capitalize(category.name)}
+              </NavLink>
+            </li>
           );
         })}
+        </ul>
       </div>
     );
   }

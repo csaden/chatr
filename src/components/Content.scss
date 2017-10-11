@@ -4,24 +4,62 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.vote-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.button-reset {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.border-arrow-transparent {
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
 }
 
 .vote-score {
-  display: flex;
-  flex-flow: column nowrap;
+  width: 40px;
+  padding: 10px;
+  text-align: center;
+}
+
+.vote-up {
+  @extend .button-reset;
+  @extend .border-arrow-transparent;
+  border-bottom: 40px solid $greyLight;
+  &:hover {
+    cursor: pointer;
+    border-bottom: 40px solid $grey;
+  }
+}
+
+.vote-down {
+  @extend .button-reset;
+  @extend .border-arrow-transparent;
+  border-top: 40px solid $greyLight;
+  &:hover {
+    cursor: pointer;
+    border-top: 40px solid $grey;
+  }
 }
 
 .score {
-  width: 20px;
   font-size: 30px;
-  padding: 10px 10px 4px;
+  margin-bottom: 8px;
   color: $greyDark;
 }
 
 .votes {
   font-size: 12px;
   color: $grey;
-  text-align: center;
 }
 
 .content {
@@ -35,10 +73,11 @@
 
 .content-body {
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .content-author {
   font-size: 12px;
   color: $grey;
+  margin-bottom: 6px;
 }

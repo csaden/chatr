@@ -2,40 +2,64 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import Select from 'react-select';
 import uuidv4 from 'uuid/v4';
 
-import {addPost} from '../redux/reducers/posts';
-
+import {comment, post} from './app-prop-types';
 import 'react-select/dist/react-select.css';
 import './PostForm.css';
 
-const POST_FIELDS = [
-  'title',
-  'body'
-];
-
 class PostForm extends Component {
+
   static propTypes = {
+    data: PropTypes.oneOfType([comment, post]),
+    isPost: PropTypes.bool,
     onCancel: PropTypes.func,
     onSubmit: PropTypes.func
   }
 
+  static defaultProps = {
+    data: {},
+    isPost: false,
+  }
+
   state = {
     isOtherCategory: false,
-    isSaving: false
+  }
+
+  componentDidMount() {
+    const {isPostNew, location} = this.props;
+    if (isPostNew) {
+      const {pathname} = location;
+      const category = _.last(pathname.split('/'));
+      if (category !== 'all') {
+        this.setState({category});
+      }
+    }
+    this.setState({...this.props.data});
   }
 
   handleSubmitClick = (e) => {
     e.preventDefault();
-    this.setState({isSaving: true});
-    const {category, isOtherCategory, otherCategory} = this.state
-    const {onSubmit} = this.props;
-    const post = _.pick(this.state, POST_FIELDS);
+    const {category, isOtherCategory, otherCategory} = this.state;
+    const post = _.omit(this.state, ['isOtherCategory', 'otherCategory']);
+    console.log(post);
+    const {isPost, onSubmit} = this.props;
+
+    if (isPost) {
+      post.category = isOtherCategory ? otherCategory : category;
+    } else {
+      post.parentId = _.get(this.props, 'match.params.id');
+    }
+
     post.timestamp = Date.now();
     post.author = 'me';
-    post.id = uuidv4();
-    post.category = isOtherCategory ? otherCategory : category;
+
+    if (!post.id) {
+      post.id = uuidv4();
+    }
+
     onSubmit(post);
   }
 
@@ -52,12 +76,17 @@ class PostForm extends Component {
   }
 
   render() {
-    const {category, otherCategory, isOtherCategory, isSaving} = this.state;
-    const {categoryNames, onCancel} = this.props;
+    const {category, otherCategory, isOtherCategory} = this.state;
+    const {categoryNames, isPost, onCancel} = this.props;
+
+    const fields = isPost ? ['title', 'body'] : ['body'];
+    const hasFields = _.every(fields, (f) => _.size(this.state[f]) >= 3);
+    const hasCategory = !_.isEmpty(category) || !_.isEmpty(otherCategory);
+    const isEnabled = isPost ? (hasFields && hasCategory) : hasFields;
 
     return (
-      <div className='form'>
-        {_.map(POST_FIELDS, (key) => {
+      <form className='form'>
+        {_.map(fields, (key, i) => {
           return (
             <div key={key} className='form-control'>
               <label
@@ -65,44 +94,57 @@ class PostForm extends Component {
                 htmlFor={`post-${key}`}>
                   {_.startCase(key)}
               </label>
-              <input
+              <textarea
+                autoFocus={i === 0}
                 className='input'
                 id={`post-${key}`}
                 onChange={this.handleInputChange}
-                type='text'
+                rows={key === 'title' ? '1' : '5'}
+                cols='50'
+                spellCheck={true}
                 value={this.state[key] || ''}
               />
             </div>
           );
         })}
-        <div>
-          <Select
-            className='category-select'
-            clearable={false}
-            options={categoryNames}
-            onChange={this.handleCategorySelect}
-            placeholder='Category'
-            value={category}
-          />
-          {isOtherCategory &&
-            <div className='form-control'>
-              <label
-                className='label'
-                htmlFor='post-category'>
-                  Category
-              </label>
-              <input
-                className='input'
-                id='post-otherCategory'
-                onChange={this.handleInputChange}
-                value={otherCategory || ''}
-              />
-            </div>
-          }
-        </div>
+        {isPost &&
+          <div className='form-control'>
+            <label
+              className='label'
+              htmlFor='post-category'>
+                Category
+            </label>
+            <Select
+              className='category-select'
+              clearable={false}
+              id='post-category'
+              options={categoryNames}
+              onChange={this.handleCategorySelect}
+              placeholder='Category'
+              required={true}
+              value={category}
+            />
+            {isOtherCategory &&
+              <div className='form-control'>
+                <label
+                  className='label'
+                  htmlFor='post-category'>
+                    Category
+                </label>
+                <input
+                  className='input'
+                  id='post-otherCategory'
+                  onChange={this.handleInputChange}
+                  value={otherCategory || ''}
+                />
+              </div>
+            }
+          </div>
+        }
         <button
           className='post-btn__submit'
-          disabled={isSaving}
+          disabled={!isEnabled}
+          type='submit'
           onClick={this.handleSubmitClick}>
             submit
         </button>
@@ -111,7 +153,7 @@ class PostForm extends Component {
           onClick={onCancel}>
             cancel
         </button>
-      </div>
+      </form>
     );
   }
 }
@@ -124,13 +166,7 @@ const mapStateToProps = ({categories}) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addPost: (post) => dispatch(addPost(post))
-  };
-}
-
-const PostFormRedux = connect(mapStateToProps, mapDispatchToProps)(PostForm);
+const PostFormRedux = withRouter(connect(mapStateToProps)(PostForm));
 
 export {
   PostFormRedux as default,

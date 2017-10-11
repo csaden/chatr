@@ -19,7 +19,7 @@ class PostList extends Component {
   }
 
   render() {
-    const {category} = this.props;
+    const {category, comments} = this.props;
     const posts = category === 'all' ?
       this.props.posts
       :
@@ -28,17 +28,24 @@ class PostList extends Component {
     return (
       <ol>
         {_.map(posts, (post) => {
-          return <Post key={post.id} post={post}/>
+          return (
+            <Post
+              key={post.id}
+              numComments={_.size(comments[post.id])}
+              post={post}
+            />
+          );
         })}
       </ol>
     );
   }
 };
 
-const PostListRedux = withRouter(connect(({posts}, {match}) => {
+const PostListRedux = withRouter(connect(({comments, posts}, {match}) => {
   const category = _.get(match, 'params.category');
   return {
     category,
+    comments,
     posts
   };
 })(PostList));

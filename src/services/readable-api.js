@@ -16,7 +16,21 @@ const ReadableAPI = {
     return apiRequest('post', url, data, options)
     .then(resp => resp.data)
     .catch(error => ({error}));
+  },
+
+  delete(path, data, options = {}) {
+    const url = UrlHelper.createApiUrl(READABLE_API_URL, path);
+    return apiRequest('delete', url, data, options)
+    .then(resp => resp.data)
+    .catch(error => ({error}));
+  },
+
+  put(path, data, options = {}) {
+    const url = UrlHelper.createApiUrl(READABLE_API_URL, path);
+    return apiRequest('put', url, data, options)
+    .then(resp => resp.data)
+    .catch(error => ({error}));
   }
-}
+};
 
 export default ReadableAPI;

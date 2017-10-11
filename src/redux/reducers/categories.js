@@ -1,4 +1,4 @@
-import {CATEGORIES_FETCH_SUCCESS, CATEGORIES_FETCH_FAILED} from '../types';
+import {CATEGORIES_FETCH_SUCCESS} from '../types';
 
 export const initialState = [];
 
@@ -7,8 +7,6 @@ export default function categories(state = initialState, action) {
     case CATEGORIES_FETCH_SUCCESS:
       action.categories.unshift({name: 'all', path: 'all'});
       return action.categories;
-    case CATEGORIES_FETCH_FAILED:
-      return state;
     default:
       return state;
   }

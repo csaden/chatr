@@ -109,6 +109,7 @@ class App extends Component {
           }
           {isAddingPost &&
             <PostForm
+              isPost={true}
               onCancel={this.handleCancelClick}
               onSubmit={this.handleSubmitPostClick}
             />

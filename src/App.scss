@@ -4,20 +4,20 @@
 .flex {
   display: flex;
   flex-flow: row nowrap;
-  align-items: flex-start;
   justify-content: flex-start;
+  min-height: 100vh;
 }
 
 .sidebar {
-  flex-basis: 15%;
+  flex-basis: 20%;
+  float: left;
   background-color: darken($greyBlue, 5%);
-  height: 100vh;
 }
 
 .app-content {
-  flex-basis: 85%;
-  height: 100vh;
+  flex-basis: 80%;
   padding: 20px 40px;
+  margin: 0 auto;
 }
 
 .app-header {

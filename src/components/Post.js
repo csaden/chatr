@@ -1,22 +1,27 @@
-import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 
 import Content from './Content';
 import {post} from './app-prop-types';
 import './Post.css';
 
-export default class Post extends Component {
+export default class Post extends PureComponent {
   static propTypes = {
+    numComments: PropTypes.number,
     post: post
   }
 
   render() {
-    const {post} = this.props;
+    const {numComments, post} = this.props;
 
     return (
       <li className='post'>
-        <Link to={`/post/${post.id}`} className='curtain'/>
-        <Content data={post}/>
+        <Content data={post} isPost={true}/>
+        <div className='post-details'>
+          <Link to={`/post/${post.id}`} className='view-details'>View Details</Link>
+          <span className='count-comments'>{numComments} comments</span>
+        </div>
       </li>
     );
   }

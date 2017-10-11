@@ -1,11 +1,33 @@
+@import 'button.scss';
+@import 'card.scss';
 @import 'colors.scss';
 
 .comment {
-  border-radius: 4px;
-  border: 1px solid $greyLight;
-  padding: 6px 20px;
+  @extend .card;
+  box-shadow: none;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
 }
 
 .comment + .comment {
   margin-top: 20px;
+}
+
+.comment-btn__edit {
+  @extend .button;
+  background-color: $grey;
+
+  &:hover {
+    background-color: darken($grey, 5%);
+  }
+}
+
+.comment-btn__delete {
+  @extend .button;
+  background-color: $red;
+
+  &:hover {
+    background-color: darken($red, 5%);
+  }
 }
