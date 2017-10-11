@@ -18,7 +18,7 @@ it('renders Sidebar and content', () => {
   const wrapper = shallow(<App {...props}/>);
   expect(wrapper.find(Sidebar).length).toBe(1);
   expect(wrapper.find('.flex').length).toBe(1);
-  expect(wrapper.find('.content').length).toBe(1);
+  expect(wrapper.find('.app-content').length).toBe(1);
 });
 
 it('dispatches request for categories on mount', () => {
