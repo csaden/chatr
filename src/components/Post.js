@@ -19,7 +19,7 @@ export default class Post extends PureComponent {
       <li className='post'>
         <Content data={post} isPost={true}/>
         <div className='post-details'>
-          <Link to={`/post/${post.id}`} className='view-details'>View Details</Link>
+          <Link to={`/${post.category}/${post.id}`} className='view-details'>View Details</Link>
           <span className='count-comments'>{numComments} comments</span>
         </div>
       </li>

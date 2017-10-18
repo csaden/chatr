@@ -79,7 +79,7 @@ class App extends Component {
     const {isAddingPost, sortKey} = this.state;
 
     const parts = _.drop(location.pathname.split('/'));
-    const header = _.first(parts) === 'post' ? 'Post Detail' : `Category: ${_.startCase(_.last(parts))}`
+    const header = _.first(parts) === 'category' ? `Category: ${_.startCase(_.last(parts))}` : 'Post Details';
 
     return (
       <div className='flex'>

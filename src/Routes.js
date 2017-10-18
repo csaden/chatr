@@ -3,7 +3,8 @@ import {Provider}             from 'react-redux';
 import {
   Router,
   Redirect,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 
 import App from './App';
@@ -19,8 +20,10 @@ export default class Routes extends PureComponent {
         <Router history={history}>
           <App>
             <Redirect to='/category/all'/>
-            <Route path='/category/:category' component={PostList}/>
-            <Route path='/post/:id' component={PostDetail}/>
+            <Switch>
+              <Route path='/category/:category' component={PostList}/>
+              <Route path='/:category/:post_id' component={PostDetail}/>
+            </Switch>
           </App>
         </Router>
       </Provider>
