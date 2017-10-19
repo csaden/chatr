@@ -44,13 +44,12 @@ class PostForm extends Component {
     e.preventDefault();
     const {category, isOtherCategory, otherCategory} = this.state;
     const post = _.omit(this.state, ['isOtherCategory', 'otherCategory']);
-    console.log(post);
     const {isPost, onSubmit} = this.props;
 
     if (isPost) {
       post.category = isOtherCategory ? otherCategory : category;
     } else {
-      post.parentId = _.get(this.props, 'match.params.id');
+      post.parentId = _.get(this.props, 'match.params.post_id');
     }
 
     post.timestamp = Date.now();
