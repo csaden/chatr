@@ -73,14 +73,7 @@ class Comment extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteComment: (id) => dispatch(deleteComment(id)),
-    editComment: (comment) => dispatch(editComment(comment))
-  };
-};
-
-const CommentRedux = connect(null, mapDispatchToProps)(Comment);
+const CommentRedux = connect(null, {deleteComment, editComment})(Comment);
 
 export {
   CommentRedux as default,

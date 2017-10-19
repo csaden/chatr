@@ -122,16 +122,12 @@ const mapStateToProps = ({comments, posts}, {match}) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addComment: (comment) => dispatch(addComment(comment)),
-    deleteComment: (id) => dispatch(deleteComment(id)),
-    deletePost: (id) => dispatch(deletePost(id)),
-    editPost: (post) => dispatch(editPost(post))
-  };
-};
-
-const PostDetailRedux = withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetail));
+const PostDetailRedux = withRouter(connect(mapStateToProps, {
+  addComment,
+  deleteComment,
+  deletePost,
+  editPost
+})(PostDetail));
 
 export {
   PostDetailRedux as default,

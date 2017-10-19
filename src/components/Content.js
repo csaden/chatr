@@ -70,14 +70,7 @@ class Content extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    voteComment: (options) => dispatch(voteComment(options)),
-    votePost: (options) => dispatch(votePost(options))
-  };
-};
-
-const ContentRedux = connect(null, mapDispatchToProps)(Content);
+const ContentRedux = connect(null, {voteComment, votePost})(Content);
 
 export {
   ContentRedux as default,
