@@ -6,17 +6,23 @@ Follow the instructions for starting the Readable Server (Backend) first.
 Then, clone this repository and follow the Get Started instructions to start this Chatr application.
 
 ## Get Started
-1. `run yarn install`
-2. `npm start`
 
+Install node v6.9.4. It's recommended to use nvm to manage your node versions. See [How to Manage Node Versions with nvm](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/).
+
+1. `nvm install 6.9.4`
+2. `yarn install`
+3. `npm start`
 
 ## Application Side Effects
+
 The application uses [redux-saga](https://github.com/redux-saga/redux-saga) as Middleware to manage fetching data and other impure actions.
 
 ## Styles
+
 The application uses sass styles sheets which are compiled to css stylesheets for the build files. Co-locate the style sheet for a component and import the component's styles. For Component Foo, `@import ./Foo.css`.
 
 ## Readable Server (Backend)
+
 The code for the backend server for this front-end repository can be found at Udacity's starter repository called [Readable](https://github.com/udacity/reactnd-project-readable-starter)
 
 To start the Readable API
@@ -39,14 +45,13 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the <organization> nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
+_ Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+_ Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution. \* Neither the name of the <organization> nor the
+names of its contributors may be used to endorse or promote products
+derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
